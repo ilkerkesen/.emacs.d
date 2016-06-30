@@ -5,6 +5,7 @@
   (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 (when (not package-archive-contents) (package-refresh-contents))
+
 (defvar my-packages
   '(auto-complete
     flycheck
@@ -23,6 +24,9 @@
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p)) (package-install p)))
 
 ;; customize interface
 (setq inhibit-splash-screen t)
