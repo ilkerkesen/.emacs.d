@@ -39,10 +39,20 @@
 (set-frame-font "DejaVu Sans Mono-9" nil t)
 
 ;; helm configuration
+(require 'helm)
 (require 'helm-config)
-(global-set-key (kbd "M-x") 'helm-M-x)
 (helm-mode 1)
+(global-set-key (kbd "M-x") 'helm-M-x)
 (projectile-global-mode)
+(setq helm-M-x-fuzzy-match t)
+(global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-x b") 'helm-mini)
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(when (executable-find "ack-grep")
+  (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
+        helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
