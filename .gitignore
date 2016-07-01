@@ -49,3 +49,9 @@ games
 
 # projectile
 projectile-*
+
+# ESS
+ESS/
+
+abbrev_defs
+recentf
