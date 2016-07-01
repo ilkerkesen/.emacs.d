@@ -20,7 +20,7 @@
     org-pdfview
     org-pomodoro
     projectile
-    solarized-theme
+    dracula-theme
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -30,17 +30,19 @@
 
 ;; customize interface
 (setq inhibit-splash-screen t)
+(transient-mark-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'solarized-dark t)
+(load-theme 'dracula t)
 (set-frame-font "DejaVu Sans Mono-9" nil t)
 
 ;; helm configuration
 (require 'helm)
 (require 'helm-config)
+
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
@@ -53,6 +55,7 @@
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
       helm-ff-file-name-history-use-recentf t)
+
 (helm-mode 1)
 
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -76,3 +79,7 @@
 ;; ESS - Julia
 (load "~/.emacs.d/ESS/lisp/ess-site")
 (setq inferior-julia-program-name "/usr/bin/julia")
+
+;; orgmode
+(require 'org)
+(define-key global-map "\C-ca" 'org-agenda)
