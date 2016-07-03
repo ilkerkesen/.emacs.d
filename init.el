@@ -8,6 +8,7 @@
 
 (defvar my-packages
   '(auto-complete
+    dracula-theme
     flycheck
     google-translate
     helm
@@ -20,13 +21,17 @@
     org-pdfview
     org-pomodoro
     projectile
-    dracula-theme
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
   (when (not (package-installed-p p)) (package-install p)))
+
+;; prevent custom.el modifications to init.el
+(setq dotemacs (expand-file-name ".emacs.d" "$HOME"))
+(setq custom-file (expand-file-name "custom.el" dotemacs))
+(load-file custom-file)
 
 ;; customize interface
 (setq inhibit-splash-screen t)

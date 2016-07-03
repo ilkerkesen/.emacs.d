@@ -55,3 +55,7 @@ ESS/
 
 abbrev_defs
 recentf
+url/
+
+# ignore custom.el
+custom.el
