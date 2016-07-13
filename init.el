@@ -17,6 +17,7 @@
     julia-shell
     magit
     markdown-mode
+    multiple-cursors
     org
     org-page
     org-pdfview
@@ -90,8 +91,7 @@
 (require 'org)
 (define-key global-map "\C-ca" 'org-agenda)
 
-;; octave-mode
-(autoload 'octave-mode "octave-mod" nil t)
+;; Octave
 (setq auto-mode-alist
       (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (add-hook 'octave-mode-hook
@@ -100,3 +100,9 @@
             (auto-fill-mode 1)
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
+
+;; multiple-cursors
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
