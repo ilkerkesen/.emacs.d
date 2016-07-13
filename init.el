@@ -9,6 +9,7 @@
 (defvar my-packages
   '(auto-complete
     dracula-theme
+    expand-region
     flycheck
     google-translate
     helm
@@ -23,6 +24,7 @@
     org-pdfview
     org-pomodoro
     projectile
+    smartparens
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -77,15 +79,19 @@
   (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
         helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
 
+;; smartparens
+(require 'smartparens-config)
+
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; yasnippet
 (yas-global-mode 1)
 
-;; ESS - Julia
+;; Julia
 (load "~/.emacs.d/ESS/lisp/ess-site")
 (setq inferior-julia-program-name "/usr/bin/julia")
+(add-hook 'julia-mode-hook #'smartparens-mode)
 
 ;; orgmode
 (require 'org)
@@ -106,3 +112,11 @@
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+;; expand-region
+(global-set-key (kbd "C-=") 'er/expand-region)
+
+
