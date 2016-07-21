@@ -33,7 +33,6 @@
   (when (not (package-installed-p p)) (package-install p)))
 
 ;; prevent custom.el modifications to init.el
-(setq dotemacs (expand-file-name ".emacs.d" "$HOME"))
 (setq custom-file (expand-file-name "custom.el" "."))
 (load-file custom-file)
 
@@ -57,9 +56,9 @@
 (define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
 
 (when (executable-find "curl")
-  (setq helm-google-suggest-use-curl-p t))
+  (defvar helm-google-suggest-use-curl-p t))
 
-(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+(defvar helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
       helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
       helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
       helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
@@ -69,10 +68,10 @@
 
 (global-set-key (kbd "M-x") 'helm-M-x)
 (projectile-global-mode)
-(setq helm-M-x-fuzzy-match t)
+(defvar helm-M-x-fuzzy-match t)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x b") 'helm-mini)
-(setq helm-buffers-fuzzy-matching t
+(defvar helm-buffers-fuzzy-matching t
       helm-recentf-fuzzy-match    t)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (when (executable-find "ack-grep")
@@ -86,11 +85,16 @@
 (global-set-key (kbd "C-x g") 'magit-status)
 
 ;; yasnippet
-(yas-global-mode 1)
+(require 'yasnippet)
+(yas-reload-all)
+(add-hook 'prog-mode-hook #'yas-minor-mode)
+(global-set-key (kbd "C-c C-y i") 'yas-insert-snippet)
+(global-set-key (kbd "C-c C-y n") 'yas-new-snippet)
+(global-set-key (kbd "C-c C-y v") 'yas-visit-snippet)
 
 ;; Julia
 (load "~/.emacs.d/ESS/lisp/ess-site")
-(setq inferior-julia-program-name "/usr/bin/julia")
+(defvar inferior-julia-program-name "/usr/bin/julia")
 (add-hook 'julia-mode-hook #'smartparens-mode)
 
 ;; orgmode
@@ -120,3 +124,6 @@
 
 ;; expand-region
 (global-set-key (kbd "C-=") 'er/expand-region)
+
+;; flycheck
+(global-flycheck-mode)
