@@ -60,3 +60,4 @@ url/
 # ignore custom.el
 custom.el
 var/
+.mc-lists.el

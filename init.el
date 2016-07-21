@@ -8,7 +8,6 @@
 
 (defvar my-packages
   '(auto-complete
-    dracula-theme
     expand-region
     flycheck
     google-translate
@@ -25,6 +24,7 @@
     org-pomodoro
     projectile
     smartparens
+    solarized-theme
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -45,7 +45,7 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'dracula t)
+(load-theme 'solarized-dark t)
 (set-frame-font "DejaVu Sans Mono-9" nil t)
 
 ;; helm configuration
@@ -95,7 +95,9 @@
 
 ;; orgmode
 (require 'org)
-(define-key global-map "\C-ca" 'org-agenda)
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
 
 ;; Octave
 (setq auto-mode-alist
@@ -118,5 +120,3 @@
 
 ;; expand-region
 (global-set-key (kbd "C-=") 'er/expand-region)
-
-
