@@ -58,11 +58,18 @@
 (when (executable-find "curl")
   (defvar helm-google-suggest-use-curl-p t))
 
-(defvar helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
-      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
-      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
-      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
-      helm-ff-file-name-history-use-recentf t)
+; open helm buffer inside current window, not occupy whole other window
+(defvar helm-split-window-in-side-p t)
+
+; move to end or beginning of source when reaching top or bottom of source.
+(defvar helm-move-to-line-cycle-in-source t)
+
+; search for library in `require' and `declare-function' sexp.
+(defvar helm-ff-search-library-in-sexp t)
+
+; scroll 8 lines other window using M-<next>/M-<prior>
+(defvar helm-scroll-amount 8)
+(defvar helm-ff-file-name-history-use-recentf t)
 
 (helm-mode 1)
 
@@ -71,12 +78,12 @@
 (defvar helm-M-x-fuzzy-match t)
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 (global-set-key (kbd "C-x b") 'helm-mini)
-(defvar helm-buffers-fuzzy-matching t
-      helm-recentf-fuzzy-match    t)
+(defvar helm-buffers-fuzzy-matching t)
+(defvar helm-recentf-fuzzy-match    t)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (when (executable-find "ack-grep")
-  (setq helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f"
-        helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
+  (defvar helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f")
+  (defvar helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
 
 ;; smartparens
 (require 'smartparens-config)
@@ -127,3 +134,4 @@
 
 ;; flycheck
 (global-flycheck-mode)
+(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
