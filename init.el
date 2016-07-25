@@ -33,7 +33,7 @@
   (when (not (package-installed-p p)) (package-install p)))
 
 ;; prevent custom.el modifications to init.el
-(setq custom-file (expand-file-name "custom.el" "."))
+(setq custom-file "~/.emacs.d/custom.el")
 (load-file custom-file)
 
 ;; customize interface
