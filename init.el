@@ -7,7 +7,8 @@
 (when (not package-archive-contents) (package-refresh-contents))
 
 (defvar my-packages
-  '(auto-complete
+  '(atom-one-dark-theme
+    auto-complete
     expand-region
     flycheck
     google-translate
@@ -44,7 +45,7 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'solarized-dark t)
+(load-theme 'atom-one-dark t)
 (set-frame-font "DejaVu Sans Mono-9" nil t)
 
 ;; helm configuration
