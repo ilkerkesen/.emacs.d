@@ -59,5 +59,12 @@ url/
 
 # ignore custom.el
 custom.el
+
+# variables
 var/
+
+# multiple-cursors
 .mc-lists.el
+
+# i3wm
+i3-emacs/

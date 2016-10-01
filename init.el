@@ -45,8 +45,8 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'atom-one-dark t)
-(set-frame-font "DejaVu Sans Mono-9" nil t)
+(load-theme 'solarized-dark t)
+(set-frame-font "Droid Sans Mono-9" nil t)
 
 ;; helm configuration
 (require 'helm)
@@ -136,3 +136,9 @@
 ;; flycheck
 (global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+;; i3 integration
+(load "~/.emacs.d/i3-emacs/i3")
+(load "~/.emacs.d/i3-emacs/i3-integration")
+(require 'i3-integration)
+(i3-one-window-per-frame-mode-on)
