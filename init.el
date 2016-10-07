@@ -7,9 +7,7 @@
 (when (not package-archive-contents) (package-refresh-contents))
 
 (defvar my-packages
-  '(atom-one-dark-theme
-    auto-complete
-    expand-region
+  '(expand-region
     flycheck
     google-translate
     helm
@@ -18,11 +16,7 @@
     julia-shell
     magit
     markdown-mode
-    multiple-cursors
     org
-    org-page
-    org-pdfview
-    org-pomodoro
     projectile
     smartparens
     solarized-theme
@@ -120,12 +114,6 @@
             (auto-fill-mode 1)
             (if (eq window-system 'x)
                 (font-lock-mode 1))))
-
-;; multiple-cursors
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; hippie-expand
 (global-set-key (kbd "M-/") 'hippie-expand)
