@@ -9,7 +9,6 @@
 (defvar my-packages
   '(expand-region
     flycheck
-    google-translate
     helm
     helm-projectile
     julia-mode
