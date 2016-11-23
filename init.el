@@ -9,8 +9,6 @@
 (defvar my-packages
   '(expand-region
     flycheck
-    helm
-    helm-projectile
     julia-mode
     julia-shell
     magit
@@ -18,7 +16,7 @@
     org
     projectile
     smartparens
-    solarized-theme
+    swiper
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -38,46 +36,21 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'solarized-dark t)
+(load-theme 'leuven t)
 (set-frame-font "Ubuntu Mono-11" nil t)
+(show-paren-mode 1)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
-;; helm configuration
-(require 'helm)
-(require 'helm-config)
+;; general keybindings
+(global-set-key (kbd "C-x c r") 'comment-or-uncomment-region)
 
-(define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action) ; rebind tab to run persistent action
-(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
-(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+;; ido-mode
+(setq ido-enable-flex-matching t)
+(setq ido-everywhere t)
+(ido-mode 1)
 
-(when (executable-find "curl")
-  (defvar helm-google-suggest-use-curl-p t))
-
-; open helm buffer inside current window, not occupy whole other window
-(defvar helm-split-window-in-side-p t)
-
-; move to end or beginning of source when reaching top or bottom of source.
-(defvar helm-move-to-line-cycle-in-source t)
-
-; search for library in `require' and `declare-function' sexp.
-(defvar helm-ff-search-library-in-sexp t)
-
-; scroll 8 lines other window using M-<next>/M-<prior>
-(defvar helm-scroll-amount 8)
-(defvar helm-ff-file-name-history-use-recentf t)
-
-(helm-mode 1)
-
-(global-set-key (kbd "M-x") 'helm-M-x)
-(projectile-global-mode)
-(defvar helm-M-x-fuzzy-match t)
-(global-set-key (kbd "M-y") 'helm-show-kill-ring)
-(global-set-key (kbd "C-x b") 'helm-mini)
-(defvar helm-buffers-fuzzy-matching t)
-(defvar helm-recentf-fuzzy-match    t)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(when (executable-find "ack-grep")
-  (defvar helm-grep-default-command "ack-grep -Hn --no-group --no-color %e %p %f")
-  (defvar helm-grep-default-recurse-command "ack-grep -H --no-group --no-color %e %p %f"))
+;; projectile
+(projectile-mode)
 
 ;; smartparens
 (require 'smartparens-config)
@@ -100,13 +73,22 @@
 
 ;; orgmode
 (require 'org)
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
 (global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
+(setq org-agenda-files
+      (list "~/source/github/ilkerkesen/notes/todo/research.org"
+	    "~/source/github/ilkerkesen/notes/todo/comp508.org"
+	    "~/source/github/ilkerkesen/notes/todo/comp529.org"
+	    "~/source/github/ilkerkesen/notes/todo/math504.org"
+	    "~/source/github/ilkerkesen/notes/todo/comp200.org"
+	    "~/source/github/ilkerkesen/notes/todo/other.org"))
+(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
 
 ;; Octave
-(setq auto-mode-alist
-      (cons '("\\.m$" . octave-mode) auto-mode-alist))
+(setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
 (add-hook 'octave-mode-hook
           (lambda ()
             (abbrev-mode 1)
@@ -123,3 +105,6 @@
 ;; flycheck
 (global-flycheck-mode)
 (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+;; CUDA mode
+(add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))

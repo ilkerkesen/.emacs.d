@@ -68,3 +68,6 @@ var/
 
 # i3wm
 i3-emacs/
+
+# ido
+ido.last
