@@ -53,6 +53,9 @@
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
+;; perspective
+(persp-mode)
+
 ;; projectile
 (projectile-mode)
 
