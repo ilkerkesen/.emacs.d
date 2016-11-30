@@ -41,6 +41,7 @@
 (set-frame-font "Ubuntu Mono-11" nil t)
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
+(global-hl-line-mode)
 
 ;; general keybindings
 (global-set-key (kbd "C-x c r") 'comment-or-uncomment-region)
@@ -92,7 +93,7 @@
 	    "~/source/github/ilkerkesen/notes/todo/math504.org"
 	    "~/source/github/ilkerkesen/notes/todo/comp200.org"
 	    "~/source/github/ilkerkesen/notes/todo/other.org"))
-(add-hook 'org-mode-hook 'turn-on-org-cdlatex)
+(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 ;; Octave
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
