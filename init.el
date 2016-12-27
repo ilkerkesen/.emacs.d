@@ -54,9 +54,6 @@
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
-;; perspective
-(persp-mode)
-
 ;; projectile
 (projectile-mode)
 
@@ -65,6 +62,14 @@
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
+
+;; magit-tramp setup
+(require 'tramp)
+(add-to-list 'tramp-remote-path "/share/apps/git/git-2.7.2/bin/git")
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+(add-hook'prog-mode-hook
+ (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
 ;; yasnippet
 (require 'yasnippet)
