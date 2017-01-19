@@ -68,6 +68,7 @@
 (add-to-list 'tramp-remote-path "/share/apps/git/git-2.7.2/bin/git")
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
+;; handle trailing whitespaces
 (add-hook'prog-mode-hook
  (lambda () (add-to-list 'write-file-functions 'delete-trailing-whitespace)))
 
@@ -80,9 +81,9 @@
 (global-set-key (kbd "C-c C-y v") 'yas-visit-snippet)
 
 ;; Julia
-(load "~/.emacs.d/ESS/lisp/ess-site")
-(defvar inferior-julia-program-name "/usr/bin/julia")
-(add-hook 'julia-mode-hook #'smartparens-mode)
+;; (load "~/.emacs.d/ESS/lisp/ess-site")
+;; (defvar inferior-julia-program-name "/usr/bin/julia")
+;; (add-hook 'julia-mode-hook #'smartparens-mode)
 
 ;; orgmode
 (require 'org)
@@ -91,13 +92,9 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(setq org-agenda-files
-      (list "~/source/github/ilkerkesen/notes/todo/research.org"
-	    "~/source/github/ilkerkesen/notes/todo/comp508.org"
-	    "~/source/github/ilkerkesen/notes/todo/comp529.org"
-	    "~/source/github/ilkerkesen/notes/todo/math504.org"
-	    "~/source/github/ilkerkesen/notes/todo/comp200.org"
-	    "~/source/github/ilkerkesen/notes/todo/other.org"))
+(defvar org-agenda-files-list-file "~/.emacs.d/agenda-files-list.el")
+(load-file org-agenda-files-list-file)
+(setq org-agenda-files org-agenda-files-list)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 ;; Octave
