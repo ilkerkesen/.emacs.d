@@ -7,7 +7,8 @@
 (when (not package-archive-contents) (package-refresh-contents))
 
 (defvar my-packages
-  '(expand-region
+  '(cyberpunk-theme
+    expand-region
     flycheck
     julia-mode
     julia-shell
@@ -37,7 +38,7 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'leuven t)
+(load-theme 'cyberpunk t)
 (set-frame-font "Ubuntu Mono-11" nil t)
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
