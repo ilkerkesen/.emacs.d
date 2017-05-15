@@ -7,18 +7,18 @@
 (when (not package-archive-contents) (package-refresh-contents))
 
 (defvar my-packages
-  '(cyberpunk-theme
-    expand-region
+  '(expand-region
     flycheck
+    gotham-theme
     julia-mode
     julia-shell
+    lua-mode
     magit
     markdown-mode
     org
     projectile
     racket-mode
     smartparens
-    swiper
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -38,8 +38,8 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'cyberpunk t)
-(set-frame-font "Ubuntu Mono-11" nil t)
+(load-theme 'gotham t)
+(set-frame-font "Inconsolata-11" nil t)
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode)
