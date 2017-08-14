@@ -9,7 +9,7 @@
 (defvar my-packages
   '(expand-region
     flycheck
-    gotham-theme
+    spacemacs-theme
     julia-mode
     julia-shell
     lua-mode
@@ -19,6 +19,7 @@
     projectile
     racket-mode
     smartparens
+    solarized-theme
     undo-tree
     yasnippet)
   "A list of packages to ensure are installed at launch.")
@@ -38,8 +39,9 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'gotham t)
-(set-frame-font "Inconsolata-11" nil t)
+(load-theme 'solarized-light t)
+(setq default-frame-alist '((font . "Roboto Mono-10")))
+(set-frame-font "Roboto Mono-10" nil t)
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode)
@@ -129,3 +131,10 @@
 
 ;; undo-tree
 (global-undo-tree-mode)
+
+;; tramp additions
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+
+;; rcirc settings
+(defvar rcirc-settings-file "~/.emacs.d/rcirc-settings.el")
+(load-file rcirc-settings-file)
