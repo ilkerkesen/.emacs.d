@@ -9,7 +9,7 @@
 (defvar my-packages
   '(expand-region
     flycheck
-    spacemacs-theme
+    isend
     julia-mode
     julia-shell
     lua-mode
@@ -40,10 +40,8 @@
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
 (load-theme 'solarized-light t)
-;(setq default-frame-alist '((font . "Roboto Mono-10")))
-;(set-frame-font "Roboto Mono-10" nil t)
-(add-to-list 'default-frame-alist '(font . "Roboto Mono-10" ))
-(set-face-attribute 'default t :font "Roboto Mono-10" )
+(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10" ))
+(set-face-attribute 'default t :font "DejaVu Sans Mono-10" )
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode)
@@ -64,6 +62,7 @@
 
 ;; smartparens
 (require 'smartparens-config)
+(add-hook 'programming-mode-hook #'smartparens-mode)
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -84,11 +83,6 @@
 (global-set-key (kbd "C-c C-y i") 'yas-insert-snippet)
 (global-set-key (kbd "C-c C-y n") 'yas-new-snippet)
 (global-set-key (kbd "C-c C-y v") 'yas-visit-snippet)
-
-;; Julia
-(load "~/.emacs.d/ESS/lisp/ess-site")
-(defvar inferior-julia-program-name "/usr/bin/julia")
-(add-hook 'julia-mode-hook #'smartparens-mode)
 
 ;; orgmode
 (require 'org)
