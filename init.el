@@ -9,7 +9,8 @@
 (defvar my-packages
   '(expand-region
     flycheck
-    isend
+    isend-mode
+    json-mode
     julia-mode
     julia-shell
     lua-mode
@@ -19,9 +20,10 @@
     projectile
     racket-mode
     smartparens
-    solarized-theme
     undo-tree
-    yasnippet)
+    yaml-mode
+    yasnippet
+    zenburn-theme)
   "A list of packages to ensure are installed at launch.")
 
 (dolist (p my-packages)
@@ -39,12 +41,13 @@
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'solarized-light t)
+(load-theme 'zenburn t)
 (add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10" ))
 (set-face-attribute 'default t :font "DejaVu Sans Mono-10" )
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode)
+(setq pop-up-frames t)
 
 ;; general keybindings
 (global-set-key (kbd "C-x c r") 'comment-or-uncomment-region)
@@ -69,8 +72,7 @@
 
 ;; magit-tramp setup
 (require 'tramp)
-(add-to-list 'tramp-remote-path "/share/apps/git/git-2.7.2/bin/git")
-(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+(add-to-list 'tramp-remote-path "/KUFS/apps/git/2.15.1/bin")
 
 ;; handle trailing whitespaces
 (add-hook'prog-mode-hook
@@ -91,9 +93,6 @@
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cb" 'org-iswitchb)
-(defvar org-agenda-files-list-file "~/.emacs.d/agenda-files-list.el")
-(load-file org-agenda-files-list-file)
-(setq org-agenda-files org-agenda-files-list)
 (setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 ;; Octave
@@ -129,8 +128,11 @@
 (global-undo-tree-mode)
 
 ;; tramp additions
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+(setq explicit-shell-file-name "/bin/bash")
 
 ;; rcirc settings
 (defvar rcirc-settings-file "~/.emacs.d/rcirc-settings.el")
 (load-file rcirc-settings-file)
+
+(setq explicit-shell-file-name "/bin/bash")
+(put 'downcase-region 'disabled nil)
