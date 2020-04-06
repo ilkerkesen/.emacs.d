@@ -2,9 +2,12 @@
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 (when (< emacs-major-version 24)
-  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
+  enb  (add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/")))
 (package-initialize)
 (when (not package-archive-contents) (package-refresh-contents))
+(defvar root-dir (file-name-directory load-file-name))
+(defun load-settings (name)
+  (load-file (concat root-dir name ".el")))
 
 (defvar my-packages
   '(expand-region
@@ -35,33 +38,64 @@
 
 ;; customize interface
 (setq inhibit-splash-screen t)
+;; (setq initial-buffer-choice "~/repos/ilkerkesen/mudur/index.org")
 (transient-mark-mode 1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode t)
 (add-hook 'prog-mode-hook 'linum-mode)
-(load-theme 'zenburn t)
-(add-to-list 'default-frame-alist '(font . "DejaVu Sans Mono-10" ))
-(set-face-attribute 'default t :font "DejaVu Sans Mono-10" )
+(add-to-list 'default-frame-alist '(font . "Dejavu Sans Mono-10" ))
+(set-face-attribute 'default t :font "Dejavu Sans Mono-10" )
 (show-paren-mode 1)
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-hl-line-mode)
+(make-variable-buffer-local 'global-hl-line-mode)
+(add-hook 'org-agenda-mode-hook (lambda () (setq global-hl-line-mode nil)))
 (setq pop-up-frames t)
+
+;; (load-theme 'zenburn t)
+;; (load-theme 'solarized t)
+;; (load-theme 'doneburn t)
+;; (load-theme 'anti-zenburn t)
+;; (load-theme 'leuven t)
+;; (load-theme 'gotham t)
+;; (load-theme 'ample-light t)
+;; (load-theme 'hemisu-dark t)
+(load-theme 'spacemacs-light t)
+;; (load-theme 'ubuntu)
+;; (load-theme 'solarized-light t)
+;; (load-theme 'gruvbox)
+;; (load-theme 'cyberpunk)
+;; (load-theme 'dracula)
 
 ;; general keybindings
 (global-set-key (kbd "C-x c r") 'comment-or-uncomment-region)
 
 ;; ido-mode
-(setq ido-enable-flex-matching t)
-(setq ido-everywhere t)
-(ido-mode 1)
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-everywhere t)
+;; (ido-mode 1)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq ivy-count-format "(%d/%d) ")
+(global-set-key (kbd "C-s") 'swiper)
+(global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "<f1> f") 'counsel-describe-function)
+(global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+(global-set-key (kbd "<f1> l") 'counsel-find-library)
+(global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+(global-set-key (kbd "<f2> u") 'counsel-unicode-char)
 
 ;; ibuffer
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; projectile
 (projectile-mode)
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+(counsel-projectile-mode)
 
 ;; smartparens
 (require 'smartparens-config)
@@ -72,7 +106,8 @@
 
 ;; magit-tramp setup
 (require 'tramp)
-(add-to-list 'tramp-remote-path "/KUFS/apps/git/2.15.1/bin")
+(setq explicit-shell-file-name "/bin/bash")
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
 
 ;; handle trailing whitespaces
 (add-hook'prog-mode-hook
@@ -85,15 +120,6 @@
 (global-set-key (kbd "C-c C-y i") 'yas-insert-snippet)
 (global-set-key (kbd "C-c C-y n") 'yas-new-snippet)
 (global-set-key (kbd "C-c C-y v") 'yas-visit-snippet)
-
-;; orgmode
-(require 'org)
-(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-(global-set-key "\C-cl" 'org-store-link)
-(global-set-key "\C-cc" 'org-capture)
-(global-set-key "\C-ca" 'org-agenda)
-(global-set-key "\C-cb" 'org-iswitchb)
-(setq org-format-latex-options (plist-put org-format-latex-options :scale 1.5))
 
 ;; Octave
 (setq auto-mode-alist (cons '("\\.m$" . octave-mode) auto-mode-alist))
@@ -110,10 +136,6 @@
 ;; expand-region
 (global-set-key (kbd "C-=") 'er/expand-region)
 
-;; flycheck
-(global-flycheck-mode)
-(setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
-
 ;; CUDA mode
 (add-to-list 'auto-mode-alist '("\\.cu\\'" . c++-mode))
 
@@ -127,12 +149,49 @@
 ;; undo-tree
 (global-undo-tree-mode)
 
-;; tramp additions
-(setq explicit-shell-file-name "/bin/bash")
-
 ;; rcirc settings
 (defvar rcirc-settings-file "~/.emacs.d/rcirc-settings.el")
 (load-file rcirc-settings-file)
 
-(setq explicit-shell-file-name "/bin/bash")
 (put 'downcase-region 'disabled nil)
+
+;; javascript
+(setq js-indent-level 2)
+(put 'narrow-to-region 'disabled nil)
+
+;; org-mode config
+(load-settings "org-mode")
+
+;; webjump
+(setq webjump-sites
+      '(("julia" . [simple-query
+			 "docs.julialang.org"
+			 "docs.julialang.org/en/v1/search/?q="
+			 ""])
+      ("pytorch" . [simple-query
+			 "pytorch.org/docs/stable/"
+			 "pytorch.org/docs/stable/search.html?check_keywords=yes&area=default&q="
+			 ""])
+      (""   . [simple-query
+	       "eksisozluk.com"
+	       <nowiki>"eksisozluk.com/"</nowiki>
+	       ""])))
+
+
+;; python-mode
+(defun python-insert-self () (interactive)
+       (insert "self."))
+(defun python-insert-ipdb () (interactive)
+       (progn (back-to-indentation)
+	      (insert "import ipdb; ipdb.set_trace()")
+	      (newline-and-indent)))
+(add-hook 'python-mode-hook
+	  (lambda () (local-set-key (kbd "M-s i") 'python-insert-ipdb)))
+(add-hook 'python-mode-hook
+	  (lambda () (local-set-key (kbd "M-s s") 'python-insert-self)))
+
+
+;; elfeed
+(require 'elfeed)
+(global-set-key (kbd "C-x w") 'elfeed)
+(load-settings "feeds")
