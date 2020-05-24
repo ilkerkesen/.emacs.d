@@ -23,6 +23,7 @@
     projectile
     racket-mode
     smartparens
+    spacemacs-theme
     undo-tree
     yaml-mode
     yasnippet
@@ -44,6 +45,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (column-number-mode t)
+
 (add-hook 'prog-mode-hook 'linum-mode)
 (add-to-list 'default-frame-alist '(font . "Dejavu Sans Mono-10" ))
 (set-face-attribute 'default t :font "Dejavu Sans Mono-10" )
@@ -150,8 +152,8 @@
 (global-undo-tree-mode)
 
 ;; rcirc settings
-(defvar rcirc-settings-file "~/.emacs.d/rcirc-settings.el")
-(load-file rcirc-settings-file)
+;; (defvar rcirc-settings-file "~/.emacs.d/rcirc-settings.el")
+;; (load-file rcirc-settings-file)
 
 (put 'downcase-region 'disabled nil)
 
@@ -189,9 +191,47 @@
 	  (lambda () (local-set-key (kbd "M-s i") 'python-insert-ipdb)))
 (add-hook 'python-mode-hook
 	  (lambda () (local-set-key (kbd "M-s s") 'python-insert-self)))
+(setq python-shell-virtualenv-root "/home/ilker/local/miniconda3")
+(setq org-babel-python-command "/home/ilker/local/miniconda3/bin/python")
 
 
 ;; elfeed
 (require 'elfeed)
 (global-set-key (kbd "C-x w") 'elfeed)
-(load-settings "feeds")
+;; (load-settings "feeds")
+
+(require 're-builder)
+(setq reb-re-syntax 'string)
+
+(require 'doom-modeline)
+;; (setq doom-modeline-major-mode-color-icon nil)
+;; (setq doom-modeline-buffer-state-icon nil)
+(setq doom-modeline-height 1)
+(setq doom-modeline-icon nil)
+(doom-modeline-mode 1)
+
+;; company
+(add-hook 'after-init-hook 'global-company-mode)
+(defun my/python-mode-hook ()
+  (add-to-list 'company-backends 'company-jedi))
+(add-hook 'python-mode-hook 'my/python-mode-hook)
+(global-set-key (kbd "M-i") 'company-complete)
+
+;; babel
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((python . t)
+   (C . t)
+   (sql .t)))
+
+
+(defvar company-mode/enable-yas t
+  "Enable yasnippet for all backends.")
+
+(defun my-org-mode-hook ()
+  (setq-local yas-buffer-local-condition
+              '(not (org-in-src-block-p t))))
+(add-hook 'org-mode-hook #'my-org-mode-hook)
+
+(setq org-src-window-setup 'other-frame)
+(global-set-key (kbd "<escape>") #'god-mode-all)

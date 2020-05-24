@@ -25,7 +25,7 @@
 (setq org-pretty-entities t)
 (setq org-agenda-window-setup 'current-window)
 (org-toggle-sticky-agenda)
-(require 'org-super-agenda)
+;; (require 'org-super-agenda)
 (setq org-startup-indented t)
 
 ;; (require 'org-alert)
@@ -43,8 +43,8 @@
 
 (setq org-ref-completion-library 'org-ref-ivy-cite)
 (require 'org-ref)
-(setq org-ref-bibliography-notes "~/repos/ilkerkesen/research/reading.org"
-      org-ref-default-bibliography '("~/repos/ilkerkesen/research/references.bib"))
+(setq org-ref-bibliography-notes "~/repos/me/research/reading.org"
+      org-ref-default-bibliography '("~/repos/me/research/references.bib"))
 (setq org-ref-bibtex-hydra-key-binding "\C-cj")
 
 
